@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Eeshan Vutkuri</title><style id="site-style">
+:root{--ink:#111;--mute:#6a6a6a;--line:#e3e3e3;--soft:#f4f4f4;--bg:#fff}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.bar{display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:8px 24px;border-bottom:1px solid var(--line);font-size:12px}
+.bar .hint{margin-right:auto;color:var(--mute);display:none}
+body.editing .bar{background:var(--ink);border-color:var(--ink)}
+body.editing .bar .hint{display:block;color:#cfcfcf}
+.bar button{font:inherit;letter-spacing:.08em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--mute);padding:5px 12px;cursor:pointer}
+body.editing .bar button{border-color:#555;color:#fff}
+body.editing .bar button.primary{background:#fff;color:var(--ink);border-color:#fff}
+body:not(.editing) #saveBtn{display:none}
+.nav{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line)}
+.nav .in{max-width:920px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.nav .brand{font-weight:600;letter-spacing:-.01em;padding:16px 0;text-decoration:none}
+.nav nav{display:flex;gap:26px;flex-wrap:wrap}
+.nav nav a{font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--mute);padding:18px 0 16px;border-bottom:2px solid transparent}
+.nav nav a.on{color:var(--ink);border-bottom-color:var(--ink)}
+main{max-width:920px;margin:0 auto;padding:64px 24px 40px;min-height:60vh}
+section.tab{display:none}
+section.tab.on{display:block}
+h1{font-size:clamp(36px,6vw,56px);line-height:1.05;letter-spacing:-.03em;font-weight:600;margin:0 0 12px}
+h2{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--mute);margin:56px 0 0;padding-top:18px;border-top:1px solid var(--ink)}
+section.tab>h2:first-child,.pagehead+h2{margin-top:0}
+h3{font-size:19px;line-height:1.3;font-weight:600;letter-spacing:-.01em;margin:0}
+p{margin:0 0 10px}
+.pagehead{font-size:clamp(30px,4.6vw,42px);line-height:1.1;letter-spacing:-.025em;font-weight:600;margin:0 0 40px}
+.lede{font-size:18px;color:var(--mute);margin:0 0 28px}
+.hero{display:grid;grid-template-columns:200px 1fr;gap:48px;align-items:start}
+.hero.nophoto{grid-template-columns:1fr}
+.about{font-size:17px;max-width:62ch}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);padding:10px 18px;background:#fff;color:var(--ink);cursor:pointer}
+.btn:hover{background:var(--ink);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:13.5px;display:inline-flex;align-items:center;gap:6px}
+.list .item.row{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:26px 0;border-bottom:1px solid var(--line)}
+.list .item.row:last-of-type{border-bottom:none}
+.meta{font-size:13px;color:var(--mute);letter-spacing:.02em;padding-top:4px}
+.meta span{display:block}
+.sub{color:var(--mute);font-size:14.5px;margin:2px 0 10px}
+.produced{margin-top:12px;padding-left:14px;border-left:2px solid var(--ink)}
+.produced b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:600}
+ul.points{margin:12px 0 0;padding-left:18px;color:#333;font-size:15px}
+ul.points li{margin:4px 0}
+.files{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+a.file{display:inline-flex;align-items:center;gap:8px;font-size:13px;text-decoration:none;border:1px solid var(--ink);padding:7px 12px;cursor:pointer}
+a.file small{font-size:10px;letter-spacing:.1em;color:var(--mute)}
+a.file:hover{background:var(--ink);color:#fff}
+a.file:hover small{color:#cfcfcf}
+.edu{padding:24px 0 0}
+.edu .line2{color:var(--mute)}
+.facts{display:flex;gap:40px;flex-wrap:wrap;margin-top:18px}
+.facts div b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.photo{position:relative;background:var(--soft);overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo.headshot{width:200px;height:200px;border-radius:50%}
+.photo.wide{aspect-ratio:16/9;margin-top:16px;max-width:520px}
+.interests{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.interest .photo{aspect-ratio:4/5}
+.interest .label{font-size:15px;font-weight:600;letter-spacing:-.005em;margin-top:12px;text-align:center}
+footer{max-width:920px;margin:0 auto;padding:28px 24px 48px;border-top:1px solid var(--line);font-size:13px;color:var(--mute);display:flex;gap:8px 24px;flex-wrap:wrap;justify-content:space-between}
+footer a{text-decoration:none;border-bottom:1px solid var(--line)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;padding:10px 16px;max-width:90vw;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+#toast.show{opacity:1}
+/* view mode: hide everything empty */
+body:not(.editing) [data-e]:empty{display:none}
+body:not(.editing) .photo:not(:has(img)){display:none}
+body:not(.editing) .item:not(:has([data-e]:not(:empty),img,a.file)){display:none}
+body:not(.editing) .group:not(:has([data-e]:not(:empty),img)){display:none}
+body:not(.editing) .produced:not(:has([data-e]:not(:empty))){display:none}
+body:not(.editing) .ctl{display:none!important}
+body:not(.editing) h2:has(+ .empty),body:not(.editing) .facts>div.empty{display:none}
+/* edit mode */
+body.editing [data-e]{outline:1px dashed transparent;outline-offset:3px;min-width:2ch;cursor:text}
+body.editing [data-e]:hover{outline-color:#b5b5b5}
+body.editing [data-e]:focus{outline:1px solid var(--ink)}
+body.editing [data-e]:empty::before{content:"[" attr(data-ph) "]";color:#a0a0a0;font-style:italic;font-weight:400}
+body.editing span[data-e]:empty,body.editing .chip [data-e]:empty{display:inline-block}
+body.editing .photo{cursor:pointer;outline:1px dashed #b5b5b5}
+body.editing .photo:not(:has(img))::before{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a}
+.ctl{font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.ctl button,button.ctl{font:inherit;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:#fff;border:1px solid #bdbdbd;color:#444;padding:3px 8px;cursor:pointer}
+.ctl button:hover,button.ctl:hover{border-color:var(--ink);color:var(--ink)}
+.ops{display:flex;gap:4px;margin-top:10px}
+.chip .ops,li .ops,a.file .ops{display:inline-flex;margin:0}
+.chip .ops button,li .ops button,a.file .ops button{border:none;padding:0 4px;background:none}
+.photo .ops{position:absolute;left:8px;bottom:8px;margin:0}
+button.add{margin-top:14px}
+.linkedit{margin-top:16px;display:grid;gap:8px;max-width:440px;text-transform:none;letter-spacing:0;font-size:13px}
+.linkedit label{display:grid;gap:3px;color:var(--mute)}
+.linkedit input{font:inherit;padding:6px 8px;border:1px solid #bdbdbd}
+@media (max-width:720px){
+ main{padding-top:40px}
+ .hero{grid-template-columns:1fr;gap:28px}
+ .list .item.row{grid-template-columns:1fr;gap:6px}
+ .interests{grid-template-columns:1fr}
+ .nav nav{gap:16px}.nav nav a{padding:10px 0 12px}.nav .brand{padding:12px 0 0}
+ .bar .hint{display:none!important}
+}
+@media print{.bar,.ctl,#toast{display:none!important}.nav{position:static}section.tab{display:block!important;page-break-inside:auto;margin-bottom:40px}}
+</style></head><body><div id="site" data-saved="false">
+<div class="bar"><span class="hint">Editing: click any text to change it, click a photo spot to add a photo. When you finish, Save my copy.</span><button type="button" id="editBtn">Edit</button><button type="button" id="saveBtn" class="primary">Save my copy</button></div>
+<header class="nav"><div class="in"><a class="brand" href="#home" data-name-text>Eeshan Vutkuri</a><nav aria-label="Sections"><a href="#home">Home</a><a href="#academics">Academics</a><a href="#work">Work Experience</a><a href="#involvement">Involvement</a><a href="#interests">Interests</a></nav></div></header>
+<main>
+<section class="tab" id="home"><div class="hero"><div class="photo headshot" data-photo data-label="Add professional headshot"></div><div>
+<h1 data-e data-ph="Your name" data-name-src>Eeshan Vutkuri</h1>
+<p class="lede" data-e data-ph="Headline: major, school, class year">FinTech and Big Data Analytics student at Virginia Tech · Class of 2030</p>
+<p class="about" data-e data-ph="About me: 70 to 120 words in the first person">I&#x27;m a freshman in Virginia Tech&#x27;s Pamplin College of Business studying FinTech and Big Data Analytics, graduating in May 2030. I&#x27;m interested in corporate finance, specifically a role in investment banking. I&#x27;ve worked at a food truck serving South Indian food in New Jersey, and as an assistant coach for a youth sports team, the Monroe Lightning. At Virginia Tech I help organize a national dance competition with Blacksburg Ki Badmaashig. I also wrote an independent 2,000-word economics research paper on cartel formation and collusion in oligopolistic industries. I work in Java, Python, HTML and Excel.</p>
+<div class="btns"><a class="btn" data-link="email" href="mailto:eeshanv@vt.edu">Email</a><a class="btn" data-link="linkedin" href="https://www.linkedin.com/in/eeshanvutkuri/" target="_blank" rel="noopener">LinkedIn</a><a class="btn file" data-resume href="files/EeshanVutkuri_Resume.pdf" data-name="EeshanVutkuri_Resume.pdf">Resume</a></div></div></div>
+<h2>Skills</h2><div class="chips list" data-list="chip"><span class="chip item"><span data-e data-ph="Skill">Java</span></span><span class="chip item"><span data-e data-ph="Skill">Python</span></span><span class="chip item"><span data-e data-ph="Skill">HTML</span></span><span class="chip item"><span data-e data-ph="Skill">Excel</span></span><span class="chip item"><span data-e data-ph="Skill">Communication</span></span><span class="chip item"><span data-e data-ph="Skill">Critical thinking</span></span></div></section>
+<section class="tab" id="academics"><p class="pagehead">Academics</p><h2>Education</h2><div class="edu">
+<h3 data-e data-ph="School">Virginia Tech, Pamplin College of Business</h3><p class="line2" data-e data-ph="Degree and major">Bachelor of Science in FinTech &amp; Big Data Analytics</p>
+<div class="facts"><div><b>Graduation</b><span data-e data-ph="Month year">Expected May 2030</span></div><div><b>GPA</b><span data-e data-ph="GPA (optional)"></span></div><div><b>Honors</b><span data-e data-ph="Honors">AP Scholar (2026) · DECA/FBA State Qualifier 2026 · MUN: represented Pakistan at state conference</span></div></div></div>
+<h2>Relevant coursework</h2><div class="chips list" data-list="chip"><span class="chip item"><span data-e data-ph="Course"></span></span><span class="chip item"><span data-e data-ph="Course"></span></span><span class="chip item"><span data-e data-ph="Course"></span></span></div>
+<h2>Projects</h2><div class="list" data-list="project"><article class="item row project"><div class="meta"><span data-e data-ph="Year">2025</span></div><div><h3 data-e data-ph="Project title">Economics Research Paper</h3><p class="sub" data-e data-ph="Course or context">Independent research · June – Aug. 2025</p><p data-e data-ph="One sentence on what the project was">An independent research paper analyzing cartel formation, collusion strategies and market behavior in oligopolistic industries.</p><p class="produced"><b>What it produced</b><span data-e data-ph="Add one line about what this project produced">A 2,000-word research paper, reviewed by a Political Science and International Relations professor.</span></p><ul class="points list" data-list="point"><li class="item"><span data-e data-ph="Detail">Examined the microeconomic structure of cartels, including price-fixing mechanisms, output restrictions, and the incentives driving member cooperation and defection.</span></li><li class="item"><span data-e data-ph="Detail">Received feedback on clarity and grasp of market dynamics.</span></li></ul><div class="photo wide" data-photo data-label="Add project image (optional)"></div><div class="files"></div></div></article><article class="item row project"><div class="meta"><span data-e data-ph="Year"></span></div><div><h3 data-e data-ph="Project title"></h3><p class="sub" data-e data-ph="Course or context"></p><p data-e data-ph="One sentence on what the project was"></p><p class="produced"><b>What it produced</b><span data-e data-ph="Add one line about what this project produced"></span></p><ul class="points list" data-list="point"><li class="item"><span data-e data-ph="Detail"></span></li><li class="item"><span data-e data-ph="Detail"></span></li></ul><div class="photo wide" data-photo data-label="Add project image (optional)"></div><div class="files"></div></div></article></div></section>
+<section class="tab" id="work"><p class="pagehead">Work Experience</p><div class="list" data-list="job"><article class="item row"><div class="meta"><span data-e data-ph="Dates">June 2026 – Aug. 2027</span><span data-e data-ph="Location">Monroe, NJ</span></div><div><h3 data-e data-ph="Title">Assistant Coach</h3><p class="sub" data-e data-ph="Employer">Monroe Lightning</p><p data-e data-ph="One or two lines on what you did">Supported practice planning for a youth sports team, ran drills and assisted in coaching during games; the team won 7 games and made the playoffs.</p></div></article><article class="item row"><div class="meta"><span data-e data-ph="Dates">Sep. 2024 – Jan. 2025</span><span data-e data-ph="Location">Pops Farm, NJ</span></div><div><h3 data-e data-ph="Title">Cashier</h3><p class="sub" data-e data-ph="Employer">Bihmas Food Truck</p><p data-e data-ph="One or two lines on what you did">Prepared South Indian dishes, packaged customer orders for pickup, and handled order taking and payment processing with the team.</p></div></article></div></section>
+<section class="tab" id="involvement"><p class="pagehead">Involvement</p>
+<div class="group"><h2>Extracurriculars</h2><div class="list" data-list="activity"><article class="item row"><div class="meta"><span data-e data-ph="Dates">Oct. 2026 – Present</span><span data-e data-ph="Location">Blacksburg, VA</span></div><div><h3 data-e data-ph="Organization">Blacksburg Ki Badmaashig</h3><p class="sub" data-e data-ph="Role">Lesion</p><p data-e data-ph="One line on what you did">Help organize a national dance competition for ethnic dance teams from schools across the country, arranging hotels and transportation, and volunteer at sporting events to raise funds.</p></div></article><article class="item row"><div class="meta"><span data-e data-ph="Dates"></span></div><div><h3 data-e data-ph="Organization">South Asian Student Association</h3><p class="sub" data-e data-ph="Role">Member</p><p data-e data-ph="One line on what you did"></p></div></article></div></div>
+<div class="group"><h2>Volunteer work</h2><div class="list" data-list="activity"><article class="item row"><div class="meta"><span data-e data-ph="Dates"></span></div><div><h3 data-e data-ph="Organization"></h3><p class="sub" data-e data-ph="Role"></p><p data-e data-ph="One line on what you did"></p></div></article></div></div></section>
+<section class="tab" id="interests"><p class="pagehead">Outside the Classroom</p><div class="interests"><div class="interest"><div class="photo" data-photo data-label="Add photo"></div><p class="label" data-e data-ph="Hobby or interest">UFC</p></div><div class="interest"><div class="photo" data-photo data-label="Add photo"></div><p class="label" data-e data-ph="Hobby or interest">Football</p></div><div class="interest"><div class="photo" data-photo data-label="Add photo"></div><p class="label" data-e data-ph="Hobby or interest">Basketball</p></div></div></section>
+</main>
+<footer><span><span data-name-text>Eeshan Vutkuri</span> · <a data-link="email" data-email-text href="mailto:eeshanv@vt.edu">eeshanv@vt.edu</a> · <a data-link="linkedin" href="https://www.linkedin.com/in/eeshanvutkuri/" target="_blank" rel="noopener">LinkedIn</a></span><span data-e data-ph="Last updated">Last updated November 2026</span></footer>
+<div id="toast" role="status" aria-live="polite"></div></div>
+<script id="site-script">
+(function(){
+"use strict";
+var site=document.getElementById("site"),body=document.body,dirty=false,toastT;
+var $$=function(s,r){return Array.prototype.slice.call((r||site).querySelectorAll(s));};
+function toast(m){var t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("show");},3800);}
+function el(html){var d=document.createElement("div");d.innerHTML=html.trim();return d.firstChild;}
+function touch(){dirty=true;}
+
+/* ---------- tabs ---------- */
+var TABS=["home","academics","work","involvement","interests"];
+function route(){var h=(location.hash||"").replace("#","");if(TABS.indexOf(h)<0)h="home";
+ $$("section.tab").forEach(function(s){s.classList.toggle("on",s.id===h);});
+ $$(".nav nav a").forEach(function(a){var on=a.getAttribute("href")==="#"+h;a.classList.toggle("on",on);if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
+ window.scrollTo(0,0);}
+window.addEventListener("hashchange",route);
+
+/* ---------- blank items ---------- */
+var E=function(tag,ph,cls){return "<"+tag+(cls?' class="'+cls+'"':"")+' data-e data-ph="'+ph+'"></'+tag+">";};
+var BLANK={
+ chip:function(){return '<span class="chip item">'+E("span","Add")+"</span>";},
+ point:function(){return '<li class="item">'+E("span","Detail")+"</li>";},
+ project:function(){return '<article class="item row project"><div class="meta">'+E("span","Year")+"</div><div>"+E("h3","Project title")+E("p","Course or context","sub")+E("p","One sentence on what the project was")+'<p class="produced"><b>What it produced</b>'+E("span","Add one line about what this project produced")+'</p><ul class="points list" data-list="point">'+BLANK.point()+BLANK.point()+'</ul><div class="photo wide" data-photo data-label="Add project image (optional)"></div><div class="files"></div></div></article>';},
+ job:function(){return '<article class="item row"><div class="meta">'+E("span","Dates")+E("span","Location")+"</div><div>"+E("h3","Title")+E("p","Employer","sub")+E("p","One or two lines on what you did")+"</div></article>";},
+ activity:function(){return '<article class="item row"><div class="meta">'+E("span","Dates")+"</div><div>"+E("h3","Organization")+E("p","Role","sub")+E("p","One line on what you did")+"</div></article>";}
+};
+var ADDLABEL={chip:"+ Add",point:"+ Add detail",project:"+ Add project",job:"+ Add position",activity:"+ Add item"};
+
+/* ---------- controls (built on entering edit mode, stripped on leaving) ---------- */
+function stripControls(root){$$(".ctl",root).forEach(function(n){n.remove();});$$("[contenteditable]",root).forEach(function(n){n.removeAttribute("contenteditable");});}
+function tidy(root){$$("[data-e]",root).forEach(function(n){if(!n.textContent.trim())n.innerHTML="";});}
+function buildControls(){
+ stripControls(site);
+ $$("[data-e]").forEach(function(n){n.setAttribute("contenteditable","true");});
+ $$("[data-list]").forEach(function(list){
+  var type=list.getAttribute("data-list"),small=(type==="chip"||type==="point");
+  $$(":scope > .item",list).forEach(function(it){
+   var ops=el('<span class="ctl ops" contenteditable="false">'+(small?"":'<button type="button" data-op="up" title="Move up">↑</button><button type="button" data-op="down" title="Move down">↓</button>')+'<button type="button" data-op="del" title="Remove">'+(small?"×":"Remove")+"</button></span>");
+   (small?it:it.lastElementChild).appendChild(ops);});
+  var add=el('<button type="button" class="ctl add" data-add="'+type+'">'+ADDLABEL[type]+"</button>");
+  if(type==="chip"||type==="point"){var w=document.createElement(type==="point"?"li":"span");w.className="ctl";w.style.listStyle="none";w.appendChild(add);list.appendChild(w);}else list.insertAdjacentElement("afterend",add);
+ });
+ $$("[data-photo]").forEach(function(p){if(p.querySelector("img"))p.appendChild(el('<span class="ctl ops"><button type="button" data-op="photo-replace">Replace</button><button type="button" data-op="photo-remove">Remove</button></span>'));});
+ $$(".files").forEach(function(f){
+  $$("a.file",f).forEach(function(a){a.appendChild(el('<span class="ctl ops" contenteditable="false"><button type="button" data-op="file-del" title="Remove file">×</button></span>'));});
+  f.appendChild(el('<button type="button" class="ctl" data-op="file-add">+ Attach file</button>'));});
+ var btns=site.querySelector(".btns");
+ if(btns){var em=site.querySelector('a[data-link="email"]'),li=site.querySelector('a[data-link="linkedin"]');
+  var box=el('<div class="ctl linkedit"><label>Email address<input type="email" data-bind="email"></label><label>LinkedIn link<input type="url" data-bind="linkedin"></label><span><button type="button" data-op="resume-replace">Replace resume file</button></span></div>');
+  box.querySelector('[data-bind="email"]').value=em?em.getAttribute("href").replace(/^mailto:/,""):"";
+  box.querySelector('[data-bind="linkedin"]').value=li?li.getAttribute("href"):"";
+  btns.insertAdjacentElement("afterend",box);}
+}
+function setEditing(on){
+ body.classList.toggle("editing",on);
+ document.getElementById("editBtn").textContent=on?"Done":"Edit";
+ if(on)buildControls();else{tidy(site);stripControls(site);syncName();markEmpty();}
+ var hero=site.querySelector(".hero");if(hero)hero.classList.toggle("nophoto",!on&&!hero.querySelector(".photo img"));
+}
+function markEmpty(){$$(".list,.facts>div").forEach(function(n){var full=!!n.querySelector("img,a.file")||$$("[data-e]",n).some(function(e){return e.textContent.trim();});n.classList.toggle("empty",!full);});}
+function syncName(){var src=site.querySelector("[data-name-src]");if(!src)return;var n=src.textContent.trim();if(!n)return;$$("[data-name-text]").forEach(function(x){x.textContent=n;});document.title=n;}
+
+/* ---------- files and photos ---------- */
+function pick(accept,cb){var i=document.createElement("input");i.type="file";if(accept)i.accept=accept;i.style.display="none";document.body.appendChild(i);
+ i.addEventListener("change",function(){var f=i.files&&i.files[0];i.remove();if(f)cb(f);});i.click();}
+function readURL(file,cb){var r=new FileReader();r.onload=function(){cb(r.result);};r.onerror=function(){toast("That file could not be read.");};r.readAsDataURL(file);}
+function setPhoto(slot){pick("image/*",function(file){readURL(file,function(url){var im=new Image();
+ im.onload=function(){var m=1200,s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+  var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);
+  var old=slot.querySelector("img");if(old)old.remove();var out=document.createElement("img");out.src=c.toDataURL("image/jpeg",0.85);
+  var lab=slot.parentNode.querySelector(".label");out.alt=(lab&&lab.textContent.trim())||slot.getAttribute("data-label").replace(/^Add /,"")||"Photo";
+  slot.insertBefore(out,slot.firstChild);touch();buildControls();};
+ im.onerror=function(){toast("That image type isn't supported. Try a JPG or PNG.");};im.src=url;});});}
+var MAXFILE=3*1024*1024;
+function attach(cb){pick("",function(file){if(file.size>MAXFILE){toast("That file is over 3 MB. Attach a smaller version, or link to it instead.");return;}readURL(file,function(url){cb(file,url);});});}
+function ext(n){var m=/\.([A-Za-z0-9]+)$/.exec(n||"");return m?m[1].toUpperCase():"FILE";}
+function b64blob(url){var p=url.split(","),bin=atob(p[1]),a=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return new Blob([a]);}
+function plainDownload(href,name){var a=document.createElement("a");a.href=href;a.download=name;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();}
+function hostSave(){return (window.claude&&typeof window.claude.use==="function")?window.claude.use("downloads").catch(function(){return null;}):Promise.resolve(null);}
+function saveFile(name,getData,fallback){
+ hostSave().then(function(dl){if(!dl){fallback();return;}
+  return Promise.resolve(getData()).then(function(data){return dl.save({filename:name,data:data});}).then(function(){toast("Saved "+name+".");})
+   .catch(function(e){var c=e&&e.code;if(c==="declined")return;if(c==="rate_limited"){toast("A save is already open. Finish that one first.");return;}if(!c){toast("This file isn't available on this preview link. It is included when the site is hosted.");return;}fallback();});});}
+function openFile(a){var href=a.getAttribute("href"),name=a.getAttribute("data-name")||href.split("/").pop();
+ saveFile(name,function(){return href.indexOf("data:")===0?b64blob(href):fetch(href).then(function(r){if(!r.ok)throw new Error("missing");return r.blob();});},function(){plainDownload(href,name);});}
+
+/* ---------- save my copy ---------- */
+function serialise(){
+ var c=site.cloneNode(true);stripControls(c);tidy(c);c.setAttribute("data-saved","true");
+ var t=c.querySelector("#toast");if(t){t.textContent="";t.className="";}
+ var hero=c.querySelector(".hero");if(hero)hero.classList.toggle("nophoto",!hero.querySelector(".photo img"));
+ var css=document.getElementById("site-style").textContent,js=document.getElementById("site-script").textContent;
+ var title=(document.title||"My site").replace(/[<>&]/g,"");
+ return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>'+title+'</title><style id="site-style">'+css+'</style></head><body>'+c.outerHTML+'\n<script id="site-script">'+js+'</scr'+'ipt>\n</body></html>\n';
+}
+function saveCopy(){syncName();var html=serialise();
+ saveFile("index.html",function(){return html;},function(){try{var u=URL.createObjectURL(new Blob([html],{type:"text/html"}));plainDownload(u,"index.html");setTimeout(function(){URL.revokeObjectURL(u);},4000);toast("Saved. Your copy is index.html in your downloads.");}catch(e){toast("Saving isn't available in this view. Open the site in a browser and try again.");}});
+ dirty=false;}
+
+/* ---------- events ---------- */
+document.getElementById("editBtn").addEventListener("click",function(){setEditing(!body.classList.contains("editing"));});
+document.getElementById("saveBtn").addEventListener("click",saveCopy);
+site.addEventListener("input",function(e){var b=e.target.getAttribute&&e.target.getAttribute("data-bind");
+ if(b==="email"){var v=e.target.value.trim();$$('a[data-link="email"]').forEach(function(a){a.setAttribute("href","mailto:"+v);if(a.hasAttribute("data-email-text"))a.textContent=v;});}
+ else if(b==="linkedin"){var u=e.target.value.trim();if(u&&!/^https?:\/\//i.test(u))u="https://"+u;$$('a[data-link="linkedin"]').forEach(function(a){a.setAttribute("href",u);});}
+ touch();});
+site.addEventListener("paste",function(e){var t=e.target.closest&&e.target.closest("[data-e]");if(!t)return;e.preventDefault();
+ var s=(e.clipboardData||window.clipboardData).getData("text/plain").replace(/\s*\n\s*/g," ");
+ var sel=window.getSelection();if(!sel.rangeCount)return;var r=sel.getRangeAt(0);r.deleteContents();r.insertNode(document.createTextNode(s));r.collapse(false);touch();});
+site.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.closest&&e.target.closest("[data-e]")){e.preventDefault();e.target.blur();}});
+site.addEventListener("focusout",function(e){var t=e.target;if(t.hasAttribute&&t.hasAttribute("data-e")){if(!t.textContent.trim())t.innerHTML="";if(t.hasAttribute("data-name-src"))syncName();}});
+site.addEventListener("click",function(e){
+ var editing=body.classList.contains("editing"),t=e.target;
+ var op=t.closest("[data-op]"),add=t.closest("[data-add]");
+ if(add&&editing){var type=add.getAttribute("data-add"),list=(type==="chip"||type==="point")?add.closest("[data-list]"):add.previousElementSibling;
+  var node=el(BLANK[type]());var anchor=(type==="chip"||type==="point")?add.parentNode:null;list.insertBefore(node,anchor);touch();buildControls();
+  var f=node.querySelector("[data-e]");if(f)f.focus();return;}
+ if(op&&editing){e.preventDefault();e.stopPropagation();var o=op.getAttribute("data-op"),it=op.closest(".item");
+  if(o==="del"&&it){it.remove();touch();}
+  else if(o==="up"&&it&&it.previousElementSibling&&it.previousElementSibling.classList.contains("item")){it.parentNode.insertBefore(it,it.previousElementSibling);touch();}
+  else if(o==="down"&&it&&it.nextElementSibling&&it.nextElementSibling.classList.contains("item")){it.parentNode.insertBefore(it.nextElementSibling,it);touch();}
+  else if(o==="photo-replace"){setPhoto(op.closest("[data-photo]"));}
+  else if(o==="photo-remove"){var im=op.closest("[data-photo]").querySelector("img");if(im)im.remove();touch();buildControls();}
+  else if(o==="file-del"){op.closest("a.file").remove();touch();}
+  else if(o==="file-add"){var box=op.closest(".files");attach(function(file,url){var a=el('<a class="file"><span data-e data-ph="File label"></span><small></small></a>');a.setAttribute("href",url);a.setAttribute("data-name",file.name);a.firstChild.textContent=file.name.replace(/\.[^.]+$/,"");a.querySelector("small").textContent=ext(file.name);box.insertBefore(a,op);touch();buildControls();});}
+  else if(o==="resume-replace"){attach(function(file,url){var a=site.querySelector("a[data-resume]");if(a){a.setAttribute("href",url);a.setAttribute("data-name",file.name);touch();toast("Resume replaced with "+file.name+".");}});}
+  return;}
+ var ph=t.closest("[data-photo]");
+ if(ph&&editing){if(!ph.querySelector("img"))setPhoto(ph);return;}
+ var fa=t.closest("a.file");
+ if(fa){e.preventDefault();if(!editing)openFile(fa);return;}
+ var link=t.closest("a[data-link]");if(link&&editing){e.preventDefault();}
+});
+window.addEventListener("beforeunload",function(e){if(dirty){e.preventDefault();e.returnValue="";}});
+
+/* ---------- start ---------- */
+route();syncName();
+setEditing(site.getAttribute("data-saved")!=="true");
+})();
+</script>
+</body></html>
